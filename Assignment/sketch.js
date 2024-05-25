@@ -14,7 +14,7 @@ function setup() {
 }
 
 function draw() {
-  background(230, 240, 240); // 背景颜色调整为灰青色调
+  background(230, 240, 240); 
   drawLayeredMountains();
   drawWaterSurface();
   drawBoat();
@@ -48,16 +48,16 @@ function drawWaterSurface() {
 }
 
 function drawBoat() {
-  tint(150, 150, 150, 150); // 设置船只为灰色调并调整透明度
+  tint(150, 150, 150, 150); 
   image(boatImage, boatX, boatY, boatImage.width * boatScale, boatImage.height * boatScale);
-  noTint(); // 重置tint设置
+  noTint(); 
 }
 
 function moveBoat() {
   boatX += random(1, 5);
   boatY += random(-2, 5);
 
-  // 边界检测，防止船只移出画布
+
   boatX = constrain(boatX, 0, width - boatImage.width * boatScale);
   boatY = constrain(boatY, height - 100 - boatImage.height * boatScale, height - boatImage.height * boatScale);
 }
