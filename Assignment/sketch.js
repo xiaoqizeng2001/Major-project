@@ -14,7 +14,7 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  background(230, 240, 240); // 背景颜色调整为灰青色调
   drawLayeredMountains();
   drawWaterSurface();
   drawBoat();
@@ -22,13 +22,13 @@ function draw() {
 }
 
 function drawLayeredMountains() {
-  let layers = 7;
+  let layers = 5;
   let maxHeight = height / 6;
   let noiseScale = 0.01; 
 
   for (let i = layers - 1; i >= 0; i--) {
     let baseHeight = height - (i * maxHeight * 0.5 + 120); // 调整基底高度，留出水面空间
-    let interColor = lerpColor(color(0, 0, 0, 50), color(255, 255, 255, 0), i / layers);
+    let interColor = lerpColor(color(70, 130, 130, 150), color(200, 220, 220, 50), i / layers); // 使用灰青色系
     fill(interColor);
     noStroke();
     beginShape();
@@ -43,21 +43,21 @@ function drawLayeredMountains() {
 }
 
 function drawWaterSurface() {
-  fill(200);
+  fill(180, 200, 200, 180); // 使用灰青色调
   rect(0, height - 100, width, 100);
 }
 
-//draw the boat
 function drawBoat() {
+  tint(150, 150, 150, 150); // 设置船只为灰色调并调整透明度
   image(boatImage, boatX, boatY, boatImage.width * boatScale, boatImage.height * boatScale);
+  noTint(); // 重置tint设置
 }
 
-//random move the boat position
 function moveBoat() {
   boatX += random(1, 5);
   boatY += random(-2, 5);
 
-//Boundary detection to prevent ships from moving off canvas
+  // 边界检测，防止船只移出画布
   boatX = constrain(boatX, 0, width - boatImage.width * boatScale);
   boatY = constrain(boatY, height - 100 - boatImage.height * boatScale, height - boatImage.height * boatScale);
 }
