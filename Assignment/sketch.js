@@ -1,24 +1,19 @@
-let boatImage, group1Image;
+let boatImage, group1Image, birdsImage;
 let boatX, boatY;
 let boatScale = 0.5;
 
 function preload() {
   boatImage = loadImage('assets/transparent_boat.png');
   group1Image = loadImage('assets/Group 1.png'); 
-  birdsImage = loadImage('assets/birds.png');  // 加载Group 1图像
+  birdsImage = loadImage('assets/birds.png'); 
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   boatX = 80;
-  // 确保在调整窗口大小时船只位置也会适当调整
+  // Make sure the boat position is adjusted as the window size is adjusted
   boatY = height - boatImage.height * 0.1 * boatScale;
   frameRate(3);
-}
-function mousePressed() {
-  // 当鼠标点击时，改变船的方向并随机改变速度
-  boatDirection *= -1;
-  boatSpeed = random(1, 5); // 随机速度在1到5之间
 }
 
 function draw() {
@@ -26,8 +21,7 @@ function draw() {
   drawLayeredMountains();
   drawWaterSurface();
   drawBoat();
-  moveBoat();
-  // 绘制 Group 1 图像在所有内容之上
+  // Draw a Group 1 image on top of everything
   image(group1Image, 460, 300, 170, 150);
   image(birdsImage, 1000, 0, 300, 150);
 }
@@ -67,11 +61,4 @@ function drawBoat() {
   tint(150, 150, 150, 150);
   image(boatImage, boatX, boatY, boatImage.width * boatScale, boatImage.height * boatScale);
   noTint();
-}
-
-function moveBoat() {
-  boatX += random(1, 5);
-  boatY += random(-2, 5);
-  boatX = constrain(boatX, 0, width - boatImage.width * boatScale);
-  boatY = constrain(boatY, height - 100 - boatImage.height * boatScale, height - boatImage.height * boatScale);
 }
