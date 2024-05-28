@@ -1,6 +1,5 @@
 let boatImage, group1Image, birdsImage;
-let boatX, boatY;
-let boatScale = 0.5;
+let boatScale = 0.7;
 
 function preload() {
   boatImage = loadImage('assets/transparent_boat.png');
@@ -8,19 +7,19 @@ function preload() {
   birdsImage = loadImage('assets/birds.png'); 
 }
 
+//Set canvas size
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  boatX = 80;
-  // Make sure the boat position is adjusted as the window size is adjusted
-  boatY = height - boatImage.height * 0.1 * boatScale;
-  frameRate(3);
+  noLoop(); 
 }
 
+//the entire canvas, including the background, mountains, water, boats and birds
 function draw() {
   background(230, 240, 240);
   drawLayeredMountains();
   drawWaterSurface();
   drawBoat();
+  
   // Draw a Group 1 image on top of everything
   image(group1Image, 460, 300, 170, 150);
   image(birdsImage, 1000, 0, 300, 150);
@@ -28,18 +27,25 @@ function draw() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  // 确保在窗口大小变化时更新船的位置
-  boatY = height - boatImage.height * 0.1 * boatScale;
+  redraw(); // Redraw the screen when the window size changes
 }
 
+//draw mountains
 function drawLayeredMountains() {
   let layers = 5;
   let maxHeight = height / 6;
   let noiseScale = 0.01;
-  for (let i = layers - 1; i >= 0; i--) {
+  // Each layer's color
+  let colors = [
+    color(50, 100, 100, 150), 
+    color(70, 120, 120, 130),  
+    color(90, 140, 140, 110),  
+    color(110, 160, 160, 90),  
+    color(130, 180, 180, 70)  
+  ];
+  for (let i = 0; i < layers; i++) {
     let baseHeight = height - (i * maxHeight * 0.5 + 120);
-    let interColor = lerpColor(color(70, 130, 130, 150), color(200, 220, 220, 50), i / layers);
-    fill(interColor);
+    fill(colors[i]);
     noStroke();
     beginShape();
     vertex(0, height);
@@ -52,12 +58,16 @@ function drawLayeredMountains() {
   }
 }
 
+//draw water surface
 function drawWaterSurface() {
   fill(180, 200, 200, 180);
   rect(0, height - 100, width, 100);
 }
 
+//draw boat
 function drawBoat() {
+  let boatX = 100; 
+  let boatY = height - boatImage.height * boatScale + 50; 
   tint(150, 150, 150, 150);
   image(boatImage, boatX, boatY, boatImage.width * boatScale, boatImage.height * boatScale);
   noTint();
