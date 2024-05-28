@@ -1,3 +1,4 @@
+// Class to manage preloading of all images
 class ResourceLoader {
   constructor() {
     this.boatImage = null;
@@ -12,9 +13,12 @@ class ResourceLoader {
   }
 }
 
+//Manage canvas properties and resize, and let the canvas to fit the window
 class CanvasManager {
   setup() {
     createCanvas(windowWidth, windowHeight);
+
+//Keep the scene static
     noLoop();
   }
 
@@ -24,8 +28,10 @@ class CanvasManager {
   }
 }
 
+//draw the background and layered mountains
 class BackgroundDrawer {
   draw() {
+//set the background color
     p5.instance.background(230, 240, 240);
     this.drawLayeredMountains();
   }
@@ -57,6 +63,7 @@ class BackgroundDrawer {
   }
 }
 
+//draw the water surface
 class WaterSurface {
   draw() {
     fill(180, 200, 200, 180);
@@ -64,6 +71,7 @@ class WaterSurface {
   }
 }
 
+//draw the boat on the water surface
 class Boat {
   constructor(boatImage) {
     this.boatImage = boatImage;
@@ -79,6 +87,7 @@ class Boat {
   }
 }
 
+// Manages the dove and bird flock, positioning them on the canvas
 class Overlay {
   constructor(group1Image, birdsImage) {
     this.group1Image = group1Image;
@@ -91,6 +100,7 @@ class Overlay {
   }
 }
 
+//create a film snow effect on the canvas
 class FilmEffect {
   draw() {
     for (let i = 0; i < 50; i++) {
