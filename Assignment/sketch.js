@@ -23,6 +23,8 @@ function draw() {
   // Draw a Group 1 image on top of everything
   image(group1Image, 460, 300, 170, 150);
   image(birdsImage, 1000, 0, 300, 150);
+
+  applyOldFilmEffect(); // Applying the old film effect
 }
 
 function windowResized() {
@@ -71,4 +73,20 @@ function drawBoat() {
   tint(150, 150, 150, 150);
   image(boatImage, boatX, boatY, boatImage.width * boatScale, boatImage.height * boatScale);
   noTint();
+}
+
+// Applying the old film effect
+function applyOldFilmEffect() {
+  // Adding noise
+  for (let i = 0; i < 50; i++) {
+    fill(255, 255, 255, random(250, 400));
+    noStroke();
+    ellipse(random(width), random(height), 4, 3);
+  }
+
+  // Occasionally flash the screen
+  if (random(100) < 1) { // Adjust frequency
+    fill(255, 255, 255, random(100, 300));
+    rect(0, 0, width, height);
+  }
 }
